@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0d0b">
+<title>BillOS — Cloud POS Presentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div>
+<header class="top">
+  <a class="logo" href="#home"><span class="logo-mark">B</span><span>BillOS<small>Cloud POS</small></span></a>
+  <div class="top-center"><span id="slideNo">01</span><i></i><span id="slideName">Vision</span></div>
+  <button class="menu-btn" id="menuBtn">☰</button>
+</header>
+
+<aside class="drawer" id="drawer">
+  <button class="close" id="closeMenu">×</button>
+  <span class="eyebrow">PRESENTATION</span><h3>Explore BillOS</h3>
+  <div id="slideLinks"></div>
+  <div class="drawer-foot">Interactive product presentation<br><small>Use ↑ ↓ or scroll to navigate</small></div>
+</aside>
+
+<main id="deck">
+<section class="slide hero active" id="home" data-name="Vision">
+  <div class="hero-copy">
+    <span class="eyebrow accent">CLOUD RETAIL OPERATING SYSTEM</span>
+    <h1>Run your store.<br><em>From anywhere.</em></h1>
+    <p>BillOS connects sales, inventory, branches and business intelligence into one modern cloud POS platform.</p>
+    <div class="hero-actions"><button class="btn primary" data-next>Start presentation <b>↓</b></button><button class="btn ghost" data-jump="demo">See product</button></div>
+    <div class="trust-row"><span>● Cloud powered</span><span>● Real-time visibility</span><span>● Built for retail</span></div>
+  </div>
+  <div class="hero-visual">
+    <div class="orb"></div>
+    <div class="mini-window floating one"><span class="dot"></span><b>Today's sales</b><strong>৳ 48,620</strong><small>↑ 12.8%</small></div>
+    <div class="dashboard-window">
+      <div class="window-top"><span>BillOS</span><div>− □ ×</div></div>
+      <div class="dash-content">
+        <div class="dash-side"><b>Overview</b><span>POS</span><span>Inventory</span><span>Reports</span></div>
+        <div class="dash-main"><div class="dash-title"><b>Good evening, Araf</b><small>Demo Store · Today</small></div><div class="dash-cards"><div><small>Sales</small><b>৳24,580</b></div><div><small>Orders</small><b>148</b></div><div><small>Low stock</small><b>12</b></div></div><div class="fake-chart"><svg viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M0 125 L65 105 L125 113 L190 68 L250 82 L315 48 L380 60 L445 28 L500 12 L500 150 L0 150Z"/><polyline points="0,125 65,105 125,113 190,68 250,82 315,48 380,60 445,28 500,12"/></svg></div></div>
+      </div>
+    </div>
+    <div class="mini-window floating two"><span>Inventory</span><strong>94.2%</strong><small>stock accuracy</small></div>
+  </div>
+</section>
+
+<section class="slide" id="problem" data-name="The Problem">
+  <div class="section-intro"><span class="eyebrow">01 · THE PROBLEM</span><h2>Retail gets complicated<br><em>when systems don't connect.</em></h2><p>Sales happen at the counter. Stock changes in the store room. Reports live somewhere else. BillOS brings them together.</p></div>
+  <div class="problem-grid">
+    <article><span class="big-icon">▤</span><h3>Scattered records</h3><p>Sales, expenses and stock are often tracked across paper, spreadsheets and separate apps.</p><strong>01</strong></article>
+    <article><span class="big-icon">!</span><h3>Stock uncertainty</h3><p>Without connected inventory, teams discover shortages after the shelf is already empty.</p><strong>02</strong></article>
+    <article><span class="big-icon">⌁</span><h3>Limited visibility</h3><p>Owners need a clear view of what is happening across counters and branches.</p><strong>03</strong></article>
+  </div>
+  <div class="quote">“The real problem isn't selling. It's knowing what happened after the sale.”</div>
+</section>
+
+<section class="slide" id="solution" data-name="The Solution">
+  <div class="solution-layout">
+    <div class="section-intro"><span class="eyebrow accent">02 · THE SOLUTION</span><h2>One system.<br><em>Every retail signal.</em></h2><p>BillOS creates a connected operating layer for everyday retail — from checkout to management.</p><button class="btn primary" data-next>See how it works →</button></div>
+    <div class="system-map">
+      <div class="core"><span class="logo-mark">B</span><b>BillOS</b><small>Cloud Core</small></div>
+      <div class="node n1"><b>POS</b><small>Sales & checkout</small></div>
+      <div class="node n2"><b>Inventory</b><small>Stock control</small></div>
+      <div class="node n3"><b>Analytics</b><small>Business insight</small></div>
+      <div class="node n4"><b>Branches</b><small>Central control</small></div>
+      <i class="orbit o1"></i><i class="orbit o2"></i>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="workflow" data-name="How It Works">
+  <div class="section-intro centered"><span class="eyebrow">03 · WORKFLOW</span><h2>From barcode to <em>business insight.</em></h2><p>A simple operational loop keeps the store and the dashboard in sync.</p></div>
+  <div class="workflow">
+    <article><span>01</span><div class="step-icon">▦</div><h3>Sell</h3><p>Cashier searches or scans a product and builds the order.</p></article>
+    <div class="connector">→</div>
+    <article><span>02</span><div class="step-icon">৳</div><h3>Checkout</h3><p>Payment is recorded and a receipt is generated.</p></article>
+    <div class="connector">→</div>
+    <article><span>03</span><div class="step-icon">↘</div><h3>Sync</h3><p>Inventory and sales data update automatically.</p></article>
+    <div class="connector">→</div>
+    <article><span>04</span><div class="step-icon">⌁</div><h3>Understand</h3><p>Managers see trends, stock and performance in one view.</p></article>
+  </div>
+</section>
+
+<section class="slide product-slide" id="demo" data-name="Product Demo">
+  <div class="section-intro"><span class="eyebrow accent">04 · PRODUCT</span><h2>A POS that feels<br><em>built for speed.</em></h2><p>A presentation-grade interface showing the core checkout experience.</p></div>
+  <div class="pos-mock">
+    <div class="pos-left">
+      <div class="pos-toolbar"><b>New sale</b><div class="mock-search">⌕ Search products</div></div>
+      <div class="mock-cats"><span class="active">All</span><span>Bakery</span><span>Snacks</span><span>Drinks</span></div>
+      <div class="mock-products">
+        <div><i>🍞</i><b>Premium Bread</b><small>৳85 · 18 left</small><button>+</button></div>
+        <div><i>🍪</i><b>Butter Cookies</b><small>৳160 · 9 left</small><button>+</button></div>
+        <div><i>🍰</i><b>Chocolate Cake</b><small>৳520 · 6 left</small><button>+</button></div>
+        <div><i>🥔</i><b>Potato Chips</b><small>৳55 · 24 left</small><button>+</button></div>
+        <div><i>🍗</i><b>Chicken Chips</b><small>৳120 · 12 left</small><button>+</button></div>
+        <div><i>🧃</i><b>Orange Juice</b><small>৳90 · 16 left</small><button>+</button></div>
+      </div>
+    </div>
+    <div class="mock-cart"><div class="cart-title"><b>Current order</b><span>3 items</span></div><div class="mock-line"><span>🍞 Premium Bread × 2</span><b>৳170</b></div><div class="mock-line"><span>🍪 Butter Cookies × 1</span><b>৳160</b></div><div class="mock-line"><span>🧃 Orange Juice × 2</span><b>৳180</b></div><div class="mock-total"><span>Subtotal</span><b>৳510</b></div><div class="mock-total"><span>Discount</span><b>− ৳0</b></div><div class="mock-total grand"><span>Total</span><strong>৳510</strong></div><button class="btn primary full" id="mockCheckout">Proceed to checkout →</button></div>
+  </div>
+  <div class="feature-tags"><span>Instant search</span><span>Smart cart</span><span>Multiple payment methods</span><span>Digital receipt</span></div>
+</section>
+
+<section class="slide" id="dashboard" data-name="Dashboard">
+  <div class="section-intro"><span class="eyebrow">05 · COMMAND CENTER</span><h2>See the business<br><em>at a glance.</em></h2><p>Owners don't need more data. They need the right signals, in one place.</p></div>
+  <div class="dashboard-mock">
+    <div class="dm-top"><b>Overview</b><span>Today · Demo Store⌄</span></div>
+    <div class="dm-stats"><div><small>Today's sales</small><strong>৳24,580</strong><em>↑ 12.5%</em></div><div><small>Transactions</small><strong>148</strong><em>↑ 8.2%</em></div><div><small>Avg. order</small><strong>৳166</strong><em>↑ 4.1%</em></div><div><small>Low stock</small><strong>12</strong><em class="warn">Needs review</em></div></div>
+    <div class="dm-bottom"><div class="dm-chart"><b>Sales performance</b><svg viewBox="0 0 650 190" preserveAspectRatio="none"><g><path d="M0 160 L90 132 L170 143 L250 91 L330 112 L410 61 L500 76 L570 45 L650 18 L650 190 L0 190Z"/><polyline points="0,160 90,132 170,143 250,91 330,112 410,61 500,76 570,45 650,18"/></g></svg><div class="days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div><div class="top-products"><b>Top products</b><div><span>🍪</span>Butter Cookies <strong>৳7,680</strong></div><div><span>🍞</span>Premium Bread <strong>৳6,920</strong></div><div><span>🍗</span>Chicken Chips <strong>৳4,240</strong></div></div></div>
+  </div>
+</section>
+
+<section class="slide" id="inventory" data-name="Inventory">
+  <div class="inventory-layout">
+    <div class="section-intro"><span class="eyebrow accent">06 · INVENTORY</span><h2>Know your stock<br><em>before it becomes a problem.</em></h2><p>Every completed sale can feed inventory visibility, helping teams identify low-stock products and monitor movement.</p><div class="inventory-callouts"><div><b>94.2%</b><span>Stock accuracy</span></div><div><b>12</b><span>Low-stock items</span></div><div><b>24/7</b><span>Cloud visibility</span></div></div></div>
+    <div class="stock-card"><div class="stock-head"><b>Inventory</b><span>Demo Store · 128 products</span></div><div class="stock-search">⌕ Search inventory</div><div class="stock-row head"><span>Product</span><span>Stock</span><span>Status</span></div><div class="stock-row"><span>🍞 Premium Bread</span><b>18</b><i>Healthy</i></div><div class="stock-row"><span>🍪 Butter Cookies</span><b>9</b><i class="low">Low</i></div><div class="stock-row"><span>🍰 Chocolate Cake</span><b>6</b><i class="low">Low</i></div><div class="stock-row"><span>🥔 Potato Chips</span><b>24</b><i>Healthy</i></div><div class="stock-row"><span>🥜 Chanachur</span><b>7</b><i class="low">Low</i></div></div>
+  </div>
+</section>
+
+<section class="slide" id="multistore" data-name="Multi-Branch">
+  <div class="section-intro centered"><span class="eyebrow">07 · MULTI-BRANCH</span><h2>One business.<br><em>Multiple locations.</em></h2><p>Give owners a centralized view while each branch keeps its day-to-day workflow simple.</p></div>
+  <div class="branch-map">
+    <div class="central"><span class="logo-mark">B</span><b>BillOS Cloud</b><small>Central operations</small></div>
+    <div class="branch b1"><span>01</span><b>Branch A</b><small>৳ 18,420 sales</small></div>
+    <div class="branch b2"><span>02</span><b>Branch B</b><small>৳ 14,680 sales</small></div>
+    <div class="branch b3"><span>03</span><b>Branch C</b><small>৳ 11,920 sales</small></div>
+    <div class="branch b4"><span>04</span><b>Branch D</b><small>৳ 9,340 sales</small></div>
+    <div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><div class="line l4"></div>
+  </div>
+</section>
+
+<section class="slide" id="analytics" data-name="Analytics">
+  <div class="section-intro"><span class="eyebrow accent">08 · ANALYTICS</span><h2>Turn transactions<br>into <em>decisions.</em></h2><p>Reports turn operational activity into information managers can act on.</p></div>
+  <div class="analytics-grid">
+    <article class="big-metric"><small>Monthly revenue</small><strong>৳ 7.84L</strong><span>Demo visualization</span><div class="bars"><i style="height:35%"></i><i style="height:52%"></i><i style="height:45%"></i><i style="height:67%"></i><i style="height:58%"></i><i style="height:79%"></i><i style="height:91%"></i><i style="height:72%"></i><i style="height:97%"></i><i style="height:86%"></i></div></article>
+    <article><span class="metric-icon">↗</span><h3>Sales trends</h3><p>Compare periods and understand movement over time.</p><b>Daily · Weekly · Monthly</b></article>
+    <article><span class="metric-icon">★</span><h3>Top products</h3><p>Identify products driving revenue and transaction volume.</p><b>Product performance</b></article>
+    <article><span class="metric-icon">৳</span><h3>Expenses</h3><p>Keep operating costs visible alongside sales activity.</p><b>Cash flow context</b></article>
+  </div>
+</section>
+
+<section class="slide" id="security" data-name="Cloud & Security">
+  <div class="security-layout">
+    <div class="section-intro"><span class="eyebrow">09 · CLOUD & CONTROL</span><h2>Connected by design.<br><em>Controlled by roles.</em></h2><p>The product concept separates everyday cashier workflows from management controls and centralized visibility.</p></div>
+    <div class="security-stack">
+      <div class="secure-card main-sec"><span>⌁</span><b>Cloud data layer</b><small>Centralized operational data</small><i>01</i></div>
+      <div class="secure-card"><span>◈</span><b>Role-based access</b><small>Cashier · Manager · Admin</small><i>02</i></div>
+      <div class="secure-card"><span>↻</span><b>Backup-ready architecture</b><small>Designed for continuity</small><i>03</i></div>
+      <div class="secure-card"><span>⌁</span><b>Branch visibility</b><small>Monitor multiple stores</small><i>04</i></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="value" data-name="Business Value">
+  <div class="section-intro centered"><span class="eyebrow accent">10 · BUSINESS VALUE</span><h2>Less operational friction.<br><em>More business visibility.</em></h2><p>BillOS is designed around the moments that matter most in retail operations.</p></div>
+  <div class="value-grid">
+    <div><span>01</span><b>Faster checkout</b><p>Keep the cashier workflow focused and simple.</p></div>
+    <div><span>02</span><b>Better stock awareness</b><p>Connect sales activity to inventory visibility.</p></div>
+    <div><span>03</span><b>Centralized control</b><p>Bring branches and business signals into one view.</p></div>
+    <div><span>04</span><b>Actionable reporting</b><p>Give managers context for daily decisions.</p></div>
+  </div>
+</section>
+
+<section class="slide" id="roadmap" data-name="Roadmap">
+  <div class="section-intro centered"><span class="eyebrow">11 · ROADMAP</span><h2>Built for today.<br><em>Ready for what's next.</em></h2><p>A modular foundation can grow as the retail operation grows.</p></div>
+  <div class="roadmap">
+    <div class="road-line"></div>
+    <article><span>01</span><b>Core POS</b><small>Sales · checkout · receipts</small></article>
+    <article><span>02</span><b>Inventory</b><small>Stock · receiving · alerts</small></article>
+    <article><span>03</span><b>Multi-store</b><small>Branches · transfers · roles</small></article>
+    <article><span>04</span><b>Intelligence</b><small>Reports · forecasting · insights</small></article>
+  </div>
+</section>
+
+<section class="slide final" id="end" data-name="The Future">
+  <div class="final-glow"></div>
+  <span class="eyebrow accent">12 · BILL OS</span>
+  <h2>Retail, <em>connected.</em></h2>
+  <p>One cloud platform for the counter, the stock room and the people running the business.</p>
+  <div class="final-actions"><button class="btn primary" data-jump="home">↻ Restart presentation</button><button class="btn ghost" id="printBtn">Print / Save PDF</button></div>
+  <div class="final-brand"><span class="logo-mark">B</span><b>BillOS</b><small>Cloud POS</small></div>
+</section>
+</main>
+
+<div class="nav-controls"><button id="prev">↑</button><div><span id="currentDot">01</span><i></i><span>13</span></div><button id="next">↓</button></div>
+<div class="hint">Scroll or use ↑ ↓</div>
+<div class="toast" id="toast">Demo interaction</div>
+<script src="script.js"></script>
+</body>
+</html>
