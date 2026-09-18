@@ -1,317 +1,309 @@
-const deck = document.getElementById("deck");
-const slides = [...document.querySelectorAll(".slide")];
+const deck=document.getElementById('deck'),slides=[...document.querySelectorAll('.slide')],current=document.getElementById('current'),total=document.getElementById('total'),drawer=document.getElementById('drawer'),backdrop=document.getElementById('backdrop'),toast=document.getElementById('toast');
 
-const bar = document.getElementById("progressBar");
-const slideNo = document.getElementById("slideNo");
-const slideName = document.getElementById("slideName");
-const currentDot = document.getElementById("currentDot");
-const toast = document.getElementById("toast");
+total.textContent=String(slides.length).padStart(2,'0');
+let index=0,wheelLocked=false,touchStartY=0,cart=0,cartTotal=0;
 
-let current = 0;
-let wheelLock = false;
+function setIndex(i){
+  index=Math.max(0,Math.min(slides.length-1,i));
+  current.textContent=String(index+1).padStart(2,'0');
+  document.querySelectorAll('.nav-item').forEach((e,n)=>e.classList.toggle('active',n===index))
+}
 
-/* =========================================
-SLIDE MENU
-========================================= */
+function goTo(i){
+  slides[i]?.scrollIntoView({behavior:'smooth'});
+  setIndex(i)
+}
 
-const links = document.getElementById("slideLinks");
+function next(){goTo(index+1)}
+function prev(){goTo(index-1)}
 
-links.innerHTML = slides
-.map(
-(slide, index) => "<button class="drawer-link" data-index="${index}"> <b>${String(index + 1).padStart(2, "0")}</b> ${slide.dataset.name} </button>"
-)
-.join("");
+document.querySelectorAll('[data-next]').forEach(b=>b.onclick=next);
 
-/* =========================================
-GO TO SLIDE
-========================================= */
-
-function goTo(index) {
-index = Math.max(0, Math.min(slides.length - 1, index));
-
-slides[index].scrollIntoView({
-behavior: "smooth",
-block: "start"
+document.querySelectorAll('[data-jump]').forEach(b=>{
+  b.onclick=()=>goTo(+b.dataset.jump)
 });
 
-current = index;
-updateUI();
-
-document.getElementById("drawer").classList.remove("open");
-}
-
-/* =========================================
-UPDATE UI
-========================================= */
-
-function updateUI() {
-const slide = slides[current];
-
-const number = String(current + 1).padStart(2, "0");
-
-slideNo.textContent = number;
-currentDot.textContent = number;
-slideName.textContent = slide.dataset.name;
-
-const progress =
-slides.length > 1
-? (current / (slides.length - 1)) * 100
-: 0;
-
-bar.style.width = progress + "%";
-
-document.querySelectorAll(".drawer-link").forEach((link, index) => {
-link.classList.toggle("active", index === current);
-});
-}
-
-/* =========================================
-NEXT / PREVIOUS
-========================================= */
-
-function next() {
-goTo(current + 1);
-}
-
-function prev() {
-goTo(current - 1);
-}
-
-/* =========================================
-NAVIGATION BUTTONS
-========================================= */
-
-document.getElementById("next").addEventListener("click", next);
-document.getElementById("prev").addEventListener("click", prev);
-
-/* =========================================
-NEXT BUTTONS
-========================================= */
-
-document.querySelectorAll("[data-next]").forEach((button) => {
-button.addEventListener("click", next);
+slides.forEach((s,i)=>{
+  let b=document.createElement('button');
+  b.className='nav-item';
+  b.innerHTML=`<b>${String(i+1).padStart(2,'0')}</b><span>${s.dataset.name}</span>`;
+  b.onclick=()=>{
+    goTo(i);
+    closeDrawer()
+  };
+  document.getElementById('drawerNav').appendChild(b)
 });
 
-/* =========================================
-JUMP BUTTONS
-========================================= */
+new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting)setIndex(slides.indexOf(e.target))
+}),{
+  root:deck,
+  threshold:.65
+}).observe(slides[0]);
 
-document.querySelectorAll("[data-jump]").forEach((button) => {
-button.addEventListener("click", () => {
-const targetId = button.dataset.jump;
+slides.slice(1).forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting)setIndex(slides.indexOf(e.target))
+}),{
+  root:deck,
+  threshold:.65
+}).observe(s));
 
-const targetIndex = slides.findIndex(
-  (slide) => slide.id === targetId
-);
-
-if (targetIndex !== -1) {
-  goTo(targetIndex);
+function openDrawer(){
+  drawer.classList.add('open');
+  backdrop.classList.add('show')
 }
 
-});
-});
-
-/* =========================================
-DRAWER LINKS
-========================================= */
-
-document.querySelectorAll(".drawer-link").forEach((button) => {
-button.addEventListener("click", () => {
-goTo(Number(button.dataset.index));
-});
-});
-
-/* =========================================
-MENU OPEN / CLOSE
-========================================= */
-
-const drawer = document.getElementById("drawer");
-const menuBtn = document.getElementById("menuBtn");
-const closeMenu = document.getElementById("closeMenu");
-
-menuBtn.addEventListener("click", () => {
-drawer.classList.add("open");
-});
-
-closeMenu.addEventListener("click", () => {
-drawer.classList.remove("open");
-});
-
-/* =========================================
-KEYBOARD NAVIGATION
-========================================= */
-
-document.addEventListener("keydown", (event) => {
-
-/* Next */
-if (
-event.key === "ArrowDown" ||
-event.key === "PageDown" ||
-event.key === " "
-) {
-event.preventDefault();
-next();
+function closeDrawer(){
+  drawer.classList.remove('open');
+  backdrop.classList.remove('show')
 }
 
-/* Previous */
-if (
-event.key === "ArrowUp" ||
-event.key === "PageUp"
-) {
-event.preventDefault();
-prev();
-}
+document.getElementById('menuBtn').onclick=openDrawer;
+document.getElementById('closeDrawer').onclick=closeDrawer;
+backdrop.onclick=closeDrawer;
 
-/* First slide */
-if (event.key === "Home") {
-event.preventDefault();
-goTo(0);
-}
+document.onkeydown=e=>{
+  if(['ArrowDown','PageDown',' '].includes(e.key)){
+    e.preventDefault();
+    next()
+  }
 
-/* Last slide */
-if (event.key === "End") {
-event.preventDefault();
-goTo(slides.length - 1);
-}
+  if(['ArrowUp','PageUp'].includes(e.key)){
+    e.preventDefault();
+    prev()
+  }
 
-/* Close drawer */
-if (event.key === "Escape") {
-drawer.classList.remove("open");
-}
-});
+  if(e.key==='Home'){
+    e.preventDefault();
+    goTo(0)
+  }
 
-/* =========================================
-MOUSE WHEEL NAVIGATION
-========================================= */
+  if(e.key==='End'){
+    e.preventDefault();
+    goTo(slides.length-1)
+  }
 
-deck.addEventListener(
-"wheel",
-(event) => {
+  if(e.key==='Escape')closeDrawer()
+};
 
-if (wheelLock) return;
+deck.addEventListener('wheel',e=>{
+  e.preventDefault();
 
-event.preventDefault();
+  if(wheelLocked||Math.abs(e.deltaY)<2)return;
 
-wheelLock = true;
+  wheelLocked=true;
 
-if (event.deltaY > 0) {
-  next();
-} else if (event.deltaY < 0) {
-  prev();
-}
+  e.deltaY>0?next():prev();
 
-setTimeout(() => {
-  wheelLock = false;
-}, 650);
+  setTimeout(()=>{
+    wheelLocked=false
+  },850)
+},{passive:false});
 
-},
-{ passive: false }
-);
+deck.addEventListener('touchstart',e=>{
+  touchStartY=e.changedTouches[0].clientY
+},{passive:true});
 
-/* =========================================
-TOUCH / SWIPE NAVIGATION
-========================================= */
+deck.addEventListener('touchend',e=>{
+  let d=touchStartY-e.changedTouches[0].clientY;
 
-let touchStartY = 0;
+  if(Math.abs(d)>55)d>0?next():prev()
+},{passive:true});
 
-deck.addEventListener(
-"touchstart",
-(event) => {
-touchStartY = event.touches[0].clientY;
-},
-{ passive: true }
-);
-
-deck.addEventListener(
-"touchend",
-(event) => {
-
-const touchEndY = event.changedTouches[0].clientY;
-
-const difference = touchStartY - touchEndY;
-
-/* Ignore very small movements */
-if (Math.abs(difference) < 45) return;
-
-if (difference > 0) {
-  next();
-} else {
-  prev();
-}
-
-},
-{ passive: true }
-);
-
-/* =========================================
-ACTIVE SLIDE DETECTION
-========================================= */
-
-const observer = new IntersectionObserver(
-(entries) => {
-
-entries.forEach((entry) => {
-
-  if (entry.isIntersecting) {
-
-    const index = slides.indexOf(entry.target);
-
-    if (index !== -1) {
-      current = index;
-      updateUI();
-    }
+document.querySelectorAll('[data-reveal]').forEach(b=>{
+  b.onclick=()=>{
+    document.getElementById(b.dataset.reveal)?.classList.toggle('show')
   }
 });
 
-},
-{
-root: deck,
-threshold: 0.6
-}
-);
-
-slides.forEach((slide) => {
-observer.observe(slide);
+document.querySelectorAll('.orbit').forEach(b=>{
+  b.onclick=()=>{
+    b.classList.toggle('active');
+    document.getElementById(b.dataset.reveal)?.classList.toggle('show')
+  }
 });
 
-/* =========================================
-POS DEMO CHECKOUT
-========================================= */
+const stepData={
+  1:[
+    '01',
+    'Sale হলো → entry হলো.',
+    'Product select, quantity, payment—তারপর bill. এতটুকুই.',
+    'Chicken Chips × 2',
+    'Cash ৳500'
+  ],
 
-const mockCheckout = document.getElementById("mockCheckout");
+  2:[
+    '02',
+    'Stock automatically moves.',
+    'Sale হলে stock কমে যাবে. Receive করলে আবার বাড়বে.',
+    'Cookies 42 → 40',
+    'Dry Cake +20'
+  ],
 
-if (mockCheckout) {
+  3:[
+    '03',
+    'Owner sees the picture.',
+    'দিনের শেষে dashboard থেকেই status দেখা যাবে.',
+    'Sales ৳48.9k',
+    'Low stock 07'
+  ]
+};
 
-mockCheckout.addEventListener("click", () => {
+document.querySelectorAll('.step').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.step').forEach(x=>x.classList.remove('active'));
 
-toast.textContent = "Demo: checkout flow ready";
+    b.classList.add('active');
 
-toast.classList.add("show");
+    let d=stepData[b.dataset.step];
 
-setTimeout(() => {
-  toast.classList.remove("show");
-}, 1800);
+    document.getElementById('stepPanel').innerHTML=`
+      <div class="step-number">${d[0]}</div>
 
+      <div>
+        <h3>${d[1]}</h3>
+
+        <p>${d[2]}</p>
+
+        <div class="fake-inputs">
+          <span>${d[3]}</span>
+          <span>${d[4]}</span>
+          <span class="ok">✓ Updated</span>
+        </div>
+      </div>
+    `
+  }
 });
 
-}
+const prices={
+  Cookies:120,
+  'Dry Cake':180,
+  Chanachur:90
+};
 
-/* =========================================
-PRINT / SAVE AS PDF
-========================================= */
+document.querySelectorAll('.add').forEach(b=>{
+  b.onclick=()=>{
+    cart++;
+    cartTotal+=prices[b.dataset.add];
 
-const printBtn = document.getElementById("printBtn");
+    document.getElementById('cartText').textContent=
+      `${cart} item${cart>1?'s':''}`;
 
-if (printBtn) {
+    document.getElementById('cartTotal').textContent=
+      '৳'+cartTotal.toLocaleString('en-BD');
 
-printBtn.addEventListener("click", () => {
-window.print();
+    document.getElementById('demoNote').innerHTML=`
+      <span>ADDED</span>
+
+      <h3>${b.dataset.add} added.</h3>
+
+      <p>আরেকটা add করতে পারো, অথবা checkout চাপো.</p>
+    `
+  }
 });
 
+document.getElementById('checkout').onclick=()=>{
+  if(!cart){
+    showToast('আগে একটা product add করো 🙂');
+    return
+  }
+
+  showToast(
+    `Bill complete — ৳${cartTotal.toLocaleString('en-BD')}`
+  );
+
+  document.getElementById('demoNote').innerHTML=`
+    <span>DONE</span>
+
+    <h3>Bill complete.</h3>
+
+    <p>
+      ${cart} item · ৳${cartTotal.toLocaleString('en-BD')}
+      · receipt ready.
+    </p>
+  `
+};
+
+const roles={
+  cashier:[
+    'Cashier',
+    'Sales, checkout, returns—day-to-day কাজের জন্য যা লাগে।'
+  ],
+
+  manager:[
+    'Manager',
+    'Stock, reports, branch activity—team চালানোর জন্য দরকারি view.'
+  ],
+
+  admin:[
+    'Admin',
+    'Users, roles, settings আর পুরো system-এর control.'
+  ]
+};
+
+document.querySelectorAll('.role').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.role').forEach(x=>x.classList.remove('active'));
+
+    b.classList.add('active');
+
+    let d=roles[b.dataset.role];
+
+    document.getElementById('roleDetail').innerHTML=`
+      <strong>${d[0]}</strong>
+      <p>${d[1]}</p>
+    `
+  }
+});
+
+const phases={
+  mvp:[
+    'Phase 01',
+    'Make the daily workflow solid.',
+    'প্রথমে sale, stock আর receipt—এই তিনটা জিনিস cleanly কাজ করুক।'
+  ],
+
+  cloud:[
+    'Phase 02',
+    'Connect the branches.',
+    'Branch sync, roles আর cloud access যোগ হবে।'
+  ],
+
+  smart:[
+    'Phase 03',
+    'Make the numbers useful.',
+    'Analytics, alerts আর smarter insights দিয়ে next decision সহজ করা হবে।'
+  ]
+};
+
+document.querySelectorAll('.phase').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.phase').forEach(x=>x.classList.remove('active'));
+
+    b.classList.add('active');
+
+    let d=phases[b.dataset.phase];
+
+    document.getElementById('phaseDetail').innerHTML=`
+      <b>${d[0]}</b>
+
+      <h3>${d[1]}</h3>
+
+      <p>${d[2]}</p>
+    `
+  }
+});
+
+function showToast(m){
+  toast.textContent=m;
+
+  toast.classList.add('show');
+
+  clearTimeout(showToast.t);
+
+  showToast.t=setTimeout(()=>{
+    toast.classList.remove('show')
+  },2200)
 }
 
-/* =========================================
-INITIALIZE
-========================================= */
-
-updateUI();
+setIndex(0);
